@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.habithero.domain.UseCasesForTodoListScreen.CreateTodoUseCase
-import com.example.habithero.infrastructure.data.Repository.TodoListRepository
+import com.example.habithero.domain.usecase.UseCasesForTodoListScreen.CreateTodoUseCase
+import com.example.habithero.infrastructure.data.repository.TodoListRepository
 import com.example.habithero.infrastructure.data.Room.Database.TodoDatabase
 import com.example.habithero.infrastructure.data.Room.Data.TodoList
 import kotlinx.coroutines.Dispatchers

@@ -1,4 +1,4 @@
-package com.example.habithero.infrastructure.data.Repository
+package com.example.habithero.infrastructure.data.repository
 
 import androidx.lifecycle.LiveData
 import com.example.habithero.infrastructure.data.Room.Dao.TodoDao

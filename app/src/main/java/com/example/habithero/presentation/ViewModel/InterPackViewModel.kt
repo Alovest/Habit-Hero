@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.habithero.domain.UseCasesForHomeScreen.InterPack.InterPackAddUseCase
-import com.example.habithero.infrastructure.data.Repository.InterPackRepository
+import com.example.habithero.domain.usecase.UseCasesForTodoListScreen.InterPack.InterPackAddUseCase
+import com.example.habithero.infrastructure.data.repository.InterPackRepository
 import com.example.habithero.infrastructure.data.Room.Data.InterPackages
 import com.example.habithero.infrastructure.data.Room.Database.InterPackDatabase
 import kotlinx.coroutines.Dispatchers

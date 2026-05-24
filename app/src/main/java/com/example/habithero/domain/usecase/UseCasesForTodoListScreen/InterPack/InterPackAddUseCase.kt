@@ -1,6 +1,6 @@
-package com.example.habithero.domain.UseCasesForHomeScreen.InterPack
+package com.example.habithero.domain.usecase.UseCasesForTodoListScreen.InterPack
 
-import com.example.habithero.infrastructure.data.Repository.InterPackRepository
+import com.example.habithero.infrastructure.data.repository.InterPackRepository
 import com.example.habithero.infrastructure.data.Room.Data.InterPackages
 
 class InterPackAddUseCase(private val repository: InterPackRepository) {
