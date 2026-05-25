@@ -1,10 +1,10 @@
 package com.example.habithero.domain.usecase.UseCasesForHomeScreen
 
+import com.example.habithero.domain.source.homescreen.DeleteUsersHabitRepository
 import com.example.habithero.infrastructure.data.Room.Data.User
-import com.example.habithero.infrastructure.data.repository.homescreen.DeleteUsersHabitImpl
 
 class DeleteUsersHabitUseCase(
-    val repository: DeleteUsersHabitImpl
+    private val repository: DeleteUsersHabitRepository
 ) {
     suspend fun execute(user: User) {
         repository.deleteUsersHabit(user)

@@ -5,16 +5,17 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.habithero.domain.source.todolist.InterPackAddRepository
 import com.example.habithero.domain.usecase.UseCasesForTodoListScreen.InterPack.InterPackAddUseCase
-import com.example.habithero.infrastructure.data.repository.InterPackRepository
+import com.example.habithero.infrastructure.data.repository.InterPackRepositoryImpl
 import com.example.habithero.infrastructure.data.Room.Data.InterPackages
 import com.example.habithero.infrastructure.data.Room.Database.InterPackDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class InterPackViewModel(application: Application,
-    private var repository: InterPackRepository,
-    private val useCase: InterPackAddUseCase
+                         private var repository: InterPackAddRepository,
+                         private val useCase: InterPackAddUseCase
 ): AndroidViewModel(application) {
 
     val readAllData: LiveData<List<InterPackages>>
@@ -25,7 +26,7 @@ class InterPackViewModel(application: Application,
 
     init {
         val todoDao = InterPackDatabase.getDatabaseToInterPack(application).interPackDao()
-        repository = InterPackRepository(todoDao)
+        repository = InterPackRepositoryImpl(todoDao)
         readAllData = repository.readAllDataInterPackRepository
     }
 

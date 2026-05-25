@@ -1,10 +1,10 @@
 package com.example.habithero.domain.usecase.UseCasesForTodoListScreen.InterPack
 
-import com.example.habithero.infrastructure.data.repository.InterPackRepository
+import com.example.habithero.domain.source.todolist.InterPackAddRepository
 import com.example.habithero.infrastructure.data.Room.Data.InterPackages
 
-class InterPackAddUseCase(private val repository: InterPackRepository) {
+class InterPackAddUseCase(private val repository: InterPackAddRepository) {
     suspend fun execute(item: InterPackages){
-        repository.getInterPacksItems(item)
+        repository.addInterPackItem(item)
     }
 }

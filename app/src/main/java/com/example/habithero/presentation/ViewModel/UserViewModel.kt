@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.habithero.domain.source.homescreen.UsersRepository
 import com.example.habithero.domain.usecase.UseCasesForHomeScreen.DeleteUsersHabitUseCase
 import com.example.habithero.domain.usecase.UseCasesForHomeScreen.FetchDataUserUseCase
 import com.example.habithero.domain.usecase.UseCasesForHomeScreen.UpdateUsersHabitUseCase
@@ -18,7 +19,8 @@ class UserViewModel(application: Application,
                     private val useCaseForAddHabit: FetchDataUserUseCase,
                     private val useCaseForDeleteHAbit: DeleteUsersHabitUseCase,
                     private val useCaseForUpdateHabit: UpdateUsersHabitUseCase,
-                    private var repository: UserRepositoryImpl):
+                    private var repository: UsersRepository
+):
     AndroidViewModel(application)
 {
     val readAllData: LiveData<List<User>>

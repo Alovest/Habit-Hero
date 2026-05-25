@@ -5,8 +5,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.habithero.domain.source.todolist.TodoListRepository
 import com.example.habithero.domain.usecase.UseCasesForTodoListScreen.CreateTodoUseCase
-import com.example.habithero.infrastructure.data.repository.TodoListRepository
+import com.example.habithero.infrastructure.data.repository.TodoListRepositoryImpl
 import com.example.habithero.infrastructure.data.Room.Database.TodoDatabase
 import com.example.habithero.infrastructure.data.Room.Data.TodoList
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +22,7 @@ class TodoListViewModel(application: Application,
     val usersTodoList: LiveData<List<TodoList>> = allTodoList
     init {
         val todoDao = TodoDatabase.getDatabaseToTodo(application).todoDao()
-        repository = TodoListRepository(todoDao)
+        repository = TodoListRepositoryImpl(todoDao)
         readAllData = repository.readAllTodo
         readAllData.observeForever { data ->
             allTodoList.value = data
