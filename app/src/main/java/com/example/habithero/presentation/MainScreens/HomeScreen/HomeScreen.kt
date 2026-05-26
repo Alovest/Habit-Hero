@@ -29,6 +29,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.livedata.observeAsState
@@ -47,6 +48,7 @@ import com.example.habithero.presentation.ViewModel.UserViewModel
 import com.example.habithero.ui.theme.backColor
 import com.example.habithero.ui.theme.colorOfCard
 import org.koin.androidx.compose.koinViewModel
+import java.time.LocalDate
 import kotlin.collections.emptyList
 
 
@@ -61,6 +63,9 @@ fun HomeScreen(){
             val viewModel: UserViewModel = koinViewModel()
             val users by viewModel.readAllData.observeAsState(emptyList())
             var expandedUserId by remember { mutableStateOf<Int?>(null) }
+            var localWasCheckedDate by remember { mutableStateOf(LocalDate.now()) }
+            var isChecked by remember { mutableStateOf(false) }
+
 
 
             Column(
@@ -103,7 +108,6 @@ fun HomeScreen(){
                 ) {
                     items(users, key = { it.id }) { user ->
                         Box(modifier = Modifier.fillMaxWidth()) {
-                            // Карточка с привычкой
                             Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -132,11 +136,20 @@ fun HomeScreen(){
                                             textDecoration = if (user.isChecked) TextDecoration.LineThrough else TextDecoration.None
                                         )
 
+                                        LaunchedEffect(localWasCheckedDate){
+                                            if (LocalDate.now().isAfter(localWasCheckedDate)) {
+                                                viewModel.updateUserChecked(user.id, false)
+                                            }
+                                        }
+
                                         Row {
                                             Checkbox(
                                                 checked = user.isChecked,
                                                 onCheckedChange = { checked ->
                                                     viewModel.updateUserChecked(user.id, checked)
+                                                    if (!user.isChecked && checked) {
+                                                        localWasCheckedDate = LocalDate.now()
+                                                    }
                                                 },
                                                 colors = CheckboxDefaults.colors(
                                                     checkedColor = Color.DarkGray,
