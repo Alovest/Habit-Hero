@@ -99,8 +99,6 @@ fun NavGraph() {
                             viewModel.getHabitFromUser(newUser)
                             inputName = ""
                             showSheet = false
-
-                            Notification()
                         }
                     }) {
                         Text(text = "Добавить")

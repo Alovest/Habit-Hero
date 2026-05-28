@@ -40,15 +40,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
+import com.example.habithero.infrastructure.WorkManager.NotifyWorker
 import com.example.habithero.infrastructure.data.Room.Data.User
 import com.example.habithero.presentation.ViewModel.UserViewModel
 import com.example.habithero.ui.theme.backColor
 import com.example.habithero.ui.theme.colorOfCard
 import org.koin.androidx.compose.koinViewModel
 import java.time.LocalDate
+import java.util.concurrent.TimeUnit
 import kotlin.collections.emptyList
 
 
@@ -65,13 +71,17 @@ fun HomeScreen(){
             var expandedUserId by remember { mutableStateOf<Int?>(null) }
             var localWasCheckedDate by remember { mutableStateOf(LocalDate.now()) }
             var isChecked by remember { mutableStateOf(false) }
-
-
+            val context = LocalContext.current
+            fun Notification(){
+                val notificationWork: WorkRequest = OneTimeWorkRequestBuilder<NotifyWorker>()
+                    .setInitialDelay(1, TimeUnit.SECONDS)
+                    .build()
+                WorkManager.getInstance(context).enqueue(notificationWork)
+            }
 
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                // Card с графиками (остаётся без изменений)
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -150,6 +160,9 @@ fun HomeScreen(){
                                                     if (!user.isChecked && checked) {
                                                         localWasCheckedDate = LocalDate.now()
                                                     }
+//                                                    if (!checked){
+//                                                        Notification()
+//                                                    }
                                                 },
                                                 colors = CheckboxDefaults.colors(
                                                     checkedColor = Color.DarkGray,
@@ -168,7 +181,6 @@ fun HomeScreen(){
                                         }
                                     }
                                 }
-
                                 DropdownMenu(
                                     expanded = expandedUserId == user.id,
                                     onDismissRequest = { expandedUserId = null },
