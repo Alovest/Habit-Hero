@@ -113,9 +113,7 @@ fun NavGraph() {
                     showSheet  = true
                 }
             )
-                    },
-        modifier = Modifier
-            .statusBarsPadding()
+                    }
     ) {
         innerPadding ->
         Box(Modifier.padding(innerPadding).background(PurpleOfScreen)) {
