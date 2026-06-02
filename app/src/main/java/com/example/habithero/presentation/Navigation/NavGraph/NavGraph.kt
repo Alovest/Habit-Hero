@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -61,12 +63,6 @@ fun NavGraph() {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var inputName by remember { mutableStateOf("") }
     val context = LocalContext.current
-    fun Notification(){
-        val notificationWork: WorkRequest = OneTimeWorkRequestBuilder<NotifyWorker>()
-            .setInitialDelay(10, TimeUnit.SECONDS)
-            .build()
-        WorkManager.getInstance(context).enqueue(notificationWork)
-    }
 
 
     if (showSheet) {
@@ -110,9 +106,16 @@ fun NavGraph() {
 
 
     Scaffold(
-        bottomBar = { NavBarWithCenterButton(navController, onCenterButtonClick = {
-            showSheet  = true
-        })}
+        bottomBar = {
+            NavBarWithCenterButton(
+                navController,
+                onCenterButtonClick = {
+                    showSheet  = true
+                }
+            )
+                    },
+        modifier = Modifier
+            .statusBarsPadding()
     ) {
         innerPadding ->
         Box(Modifier.padding(innerPadding).background(PurpleOfScreen)) {

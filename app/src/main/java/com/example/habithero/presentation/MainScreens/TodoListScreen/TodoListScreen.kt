@@ -54,54 +54,70 @@ fun TodoListScreen(viewModel: TodoListViewModel, navController: NavController) {
     val todoList by viewModel.readAllData.observeAsState(emptyList())
     var showDialog by remember { mutableStateOf(false) }
 Box(modifier = Modifier.background(backColor).fillMaxSize()) {
-    LazyVerticalGrid(
-        modifier = Modifier
-            .fillMaxSize(),
-        columns = GridCells.Fixed(2)
-    ) {
-        items(todoList) { items ->
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(130.dp)
-                    .padding(start = 12.dp, end = 6.dp, top = 8.dp)
-                    .shadow(
-                        10.dp,
-                        shape = RoundedCornerShape(14.dp)
-                    )
-                    .clickable {
-                        if (items.titleOfTodo.isNotBlank()) {
-                            navController.navigate("details/${items.titleOfTodo}")
-                        } else {
-                            Log.d("data is not sending", "data: ${items.titleOfTodo}")
-                        }
-                    },
-                elevation = 8.dp,
-                shape = RoundedCornerShape(10.dp)
-            ) {
-                Box(
+    Column(modifier = Modifier.fillMaxSize()) {
+        Text(
+            text = "Папки с задачами:",
+            style = androidx.compose.material.MaterialTheme.typography.h5,
+            modifier = Modifier.padding(
+                start = 12.dp,
+                end = 6.dp,
+                top = 8.dp
+            ),
+            color = Color.White
+        )
+        LazyVerticalGrid(
+            modifier = Modifier
+                .fillMaxSize(),
+            columns = GridCells.Fixed(2)
+        ) {
+            items(todoList) { items ->
+                Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(colorOfCard),
-                    contentAlignment = Alignment.CenterStart
-
+                        .height(130.dp)
+                        .padding(
+                            start = 12.dp,
+                            end = 6.dp,
+                            top = 8.dp
+                        )
+                        .shadow(
+                            10.dp,
+                            shape = RoundedCornerShape(14.dp)
+                        )
+                        .clickable {
+                            if (items.titleOfTodo.isNotBlank()) {
+                                navController.navigate("details/${items.titleOfTodo}")
+                            } else {
+                                Log.d("data is not sending", "data: ${items.titleOfTodo}")
+                            }
+                        },
+                    elevation = 8.dp,
+                    shape = RoundedCornerShape(10.dp)
                 ) {
-                    Row(
+                    Box(
                         modifier = Modifier
-                            .padding(8.dp),
-                        verticalAlignment = Alignment
-                            .CenterVertically
+                            .fillMaxWidth()
+                            .background(colorOfCard),
+                        contentAlignment = Alignment.CenterStart
+
                     ) {
-                        Text(
-                            text = items.titleOfTodo,
-                            color = Color.White,
-                            style = MaterialTheme.typography.titleMedium
+                        Row(
+                            modifier = Modifier
+                                .padding(8.dp),
+                            verticalAlignment = Alignment
+                                .CenterVertically
+                        ) {
+                            Text(
+                                text = items.titleOfTodo,
+                                color = Color.White,
+                                style = MaterialTheme.typography.titleMedium
+                            )
+                        }
+                        Spacer(
+                            modifier = Modifier
+                                .padding(8.dp)
                         )
                     }
-                    Spacer(
-                        modifier = Modifier
-                            .padding(8.dp)
-                    )
                 }
             }
         }

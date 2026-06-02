@@ -12,19 +12,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import android.graphics.Color
+import androidx.compose.foundation.background
+import androidx.compose.material3.Surface
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import com.example.habithero.presentation.Navigation.NavGraph.NavGraph
 import com.example.habithero.ui.theme.HabitHeroTheme
 import com.example.habithero.ui.theme.PurpleOfScreen
+import com.example.habithero.ui.theme.backColor
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
-                NavGraph()
+                    NavGraph()
             }
         }
     }

@@ -100,7 +100,7 @@ val appModule = module {
          //viewModel
     viewModel{
         InterPackViewModel(androidApplication(),
-            get<InterPackRepositoryImpl>(),
+            get< InterPackAddRepository>(),
             get<InterPackAddUseCase>()
         )
     }
