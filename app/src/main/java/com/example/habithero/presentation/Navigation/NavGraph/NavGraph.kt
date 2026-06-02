@@ -116,7 +116,7 @@ fun NavGraph() {
                     }
     ) {
         innerPadding ->
-        Box(Modifier.padding(innerPadding).background(PurpleOfScreen)) {
+        Box(Modifier.background(PurpleOfScreen).padding(innerPadding)) {
             val TodoViewModel: TodoListViewModel = koinViewModel()
             NavHost(navController, startDestination = "Home") {
                 composable("Home") {HomeScreen()}
