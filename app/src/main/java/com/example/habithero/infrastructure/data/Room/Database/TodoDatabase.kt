@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.habithero.infrastructure.data.Room.Dao.InterPackDao
 import com.example.habithero.infrastructure.data.Room.Dao.TodoDao
+import com.example.habithero.infrastructure.data.Room.Data.InterPackages
 import com.example.habithero.infrastructure.data.Room.Data.TodoList
 
-@Database(entities = [TodoList::class], version = 2, exportSchema = false)
+@Database(entities = [TodoList::class, InterPackages::class], version = 3, exportSchema = false)
 abstract class TodoDatabase: RoomDatabase() {
     abstract fun todoDao(): TodoDao
+    abstract fun interPackDao(): InterPackDao
     companion object {
         @Volatile
         private var INSTANCE: TodoDatabase? = null

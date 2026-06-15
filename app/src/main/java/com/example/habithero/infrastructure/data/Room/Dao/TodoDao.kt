@@ -12,6 +12,6 @@ interface TodoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun getTodoList(todo: TodoList)
 
-    @Query("SELECT * FROM todo_database ORDER BY id ASC")
-    fun getAllTodo(): LiveData<List<TodoList>>
+    @Query("SELECT * FROM todo_database WHERE IPid = :IPid")
+    fun getAllTodo(IPid: Long): LiveData<List<TodoList>>
 }

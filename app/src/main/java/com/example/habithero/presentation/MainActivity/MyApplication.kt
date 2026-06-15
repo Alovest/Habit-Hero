@@ -1,7 +1,8 @@
-package com.example.habithero.di
+package com.example.habithero.presentation.MainActivity
 
 import android.app.Application
-import com.example.habithero.di.Modules.appModule
+import com.example.habithero.di.dataModules.dataModule
+import com.example.habithero.di.domainModules.domainModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -10,7 +11,7 @@ class MyApplication: Application() {
         super.onCreate()
         startKoin {
             androidContext(this@MyApplication)
-            modules(appModule)
+            modules(dataModule, domainModule)
         }
     }
 }

@@ -7,7 +7,8 @@ import com.example.habithero.infrastructure.data.Room.Data.TodoList
 interface TodoListRepository {
     val todoDao: TodoDao
     val readAllTodo: LiveData<List<TodoList>>
-    suspend fun addItemTodoList(todo: TodoList) {
-        todoDao.getTodoList(todo)
+    val IPid: Long
+    suspend fun addItemTodoList(IPid: TodoList) {
+        todoDao.getTodoList(IPid)
     }
 }

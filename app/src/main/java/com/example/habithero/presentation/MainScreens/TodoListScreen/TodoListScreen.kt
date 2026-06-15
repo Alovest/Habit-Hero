@@ -171,7 +171,7 @@ fun showDialogFun(
         confirmButton = {
             Button(onClick = {
                 if (inputName.isNotBlank()) {
-                    val newTodo = TodoList(titleOfTodo = inputName)
+                    val newTodo = TodoList(titleOfTodo = inputName, IPid = 1)
                     viewModel.getTodoFromUser(newTodo)
                     inputName = ""
                     onDismiss()

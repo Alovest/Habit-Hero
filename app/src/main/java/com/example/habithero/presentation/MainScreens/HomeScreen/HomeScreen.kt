@@ -124,7 +124,7 @@ fun HomeScreen(){
                                     .fillMaxWidth()
                                     .padding(start = 16.dp, end = 16.dp, top = 8.dp)
                                     .shadow(10.dp, shape = RoundedCornerShape(14.dp))
-                                    .heightIn(min = 60.dp), // Минимальная высота вместо жёсткой
+                                    .heightIn(min = 60.dp),
                                 elevation = 8.dp,
                                 shape = RoundedCornerShape(10.dp)
                             ) {
@@ -161,9 +161,9 @@ fun HomeScreen(){
                                                     if (!user.isChecked && checked) {
                                                         localWasCheckedDate = LocalDate.now()
                                                     }
-//                                                    if (!checked){
-//                                                        Notification()
-//                                                    }
+                                                    if (!checked){
+                                                        Notification()
+                                                    }
                                                 },
                                                 colors = CheckboxDefaults.colors(
                                                     checkedColor = Color.DarkGray,

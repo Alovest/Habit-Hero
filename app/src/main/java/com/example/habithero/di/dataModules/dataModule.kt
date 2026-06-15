@@ -1,4 +1,4 @@
-package com.example.habithero.di.Modules
+package com.example.habithero.di.dataModules
 
 import com.example.habithero.domain.source.homescreen.DeleteUsersHabitRepository
 import com.example.habithero.domain.source.homescreen.UpdateUsersHabit
@@ -23,34 +23,13 @@ import com.example.habithero.presentation.ViewModel.TodoListViewModel
 import com.example.habithero.presentation.ViewModel.UserViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.factory
 import org.koin.dsl.module
 
-val appModule = module {
+val dataModule = module {
     //Users part
        //database
     single {
         UserDatabase.getDatabaseToHabit(androidApplication()).userDao()
-    }
-       // repositories
-    single<UsersRepository> {
-        UserRepositoryImpl(get())
-    }
-    single<UpdateUsersHabit> {
-        UpdateUsersHabitImpl(get())
-    }
-    single<DeleteUsersHabitRepository> {
-        DeleteUsersHabitImpl(get())
-    }
-       // use cases
-    factory<DeleteUsersHabitUseCase>{
-        DeleteUsersHabitUseCase(get())
-    }
-    factory<FetchDataUserUseCase> {
-        FetchDataUserUseCase(get())
-    }
-    factory<UpdateUsersHabitUseCase> {
-        UpdateUsersHabitUseCase(get())
     }
        //viewModel
     viewModel {
@@ -61,16 +40,6 @@ val appModule = module {
             get<UsersRepository>()
         ) }
     //
-
-    //TodoLists part
-        //use case
-    factory<CreateTodoUseCase> {
-        CreateTodoUseCase(get())
-    }
-        //repository
-    single<TodoListRepository> {
-        TodoListRepositoryImpl(get())
-    }
         //database
     single {
         TodoDatabase.getDatabaseToTodo(androidApplication()).todoDao()
@@ -79,20 +48,11 @@ val appModule = module {
     viewModel{
         TodoListViewModel(androidApplication(),
         get<CreateTodoUseCase>(),
-        get<TodoListRepository>()
+        get<TodoListRepository>(),
+            get()
         )
     }
     //
-
-    //InterPackages
-         //use case
-    factory<InterPackAddUseCase> {
-        InterPackAddUseCase(get())
-    }
-         //repository
-    single<InterPackAddRepository> {
-        InterPackRepositoryImpl(get())
-    }
          //database
     single {
         InterPackDatabase.getDatabaseToInterPack(androidApplication()).interPackDao()
@@ -100,7 +60,7 @@ val appModule = module {
          //viewModel
     viewModel{
         InterPackViewModel(androidApplication(),
-            get< InterPackAddRepository>(),
+            get<InterPackAddRepository>(),
             get<InterPackAddUseCase>()
         )
     }

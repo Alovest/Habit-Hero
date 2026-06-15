@@ -12,6 +12,6 @@ interface InterPackDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun getInterPacksItem(item: InterPackages)
 
-    @Query("SELECT * FROM inter_packages ORDER BY id ASC")
+    @Query("SELECT * FROM inter_packages ORDER BY InterPackagesid ASC")
     fun getAllItems(): LiveData<List<InterPackages>>
 }

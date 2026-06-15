@@ -15,14 +15,15 @@ import kotlinx.coroutines.launch
 
 class TodoListViewModel(application: Application,
                         private val useCase: CreateTodoUseCase,
-                        private var repository: TodoListRepository
+                        private var repository: TodoListRepository,
+                        private val IPid: Long
 ): AndroidViewModel(application) {
     val readAllData: LiveData<List<TodoList>>
     private val allTodoList = MutableLiveData<List<TodoList>>()
     val usersTodoList: LiveData<List<TodoList>> = allTodoList
     init {
         val todoDao = TodoDatabase.getDatabaseToTodo(application).todoDao()
-        repository = TodoListRepositoryImpl(todoDao)
+        repository = TodoListRepositoryImpl(todoDao, IPid)
         readAllData = repository.readAllTodo
         readAllData.observeForever { data ->
             allTodoList.value = data
