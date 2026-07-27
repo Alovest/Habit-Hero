@@ -10,8 +10,8 @@ import com.example.habithero.domain.usecase.UseCasesForHomeScreen.DeleteUsersHab
 import com.example.habithero.domain.usecase.UseCasesForHomeScreen.FetchDataUserUseCase
 import com.example.habithero.domain.usecase.UseCasesForHomeScreen.UpdateUsersHabitUseCase
 import com.example.habithero.infrastructure.data.repository.homescreen.UserRepositoryImpl
-import com.example.habithero.infrastructure.data.Room.Database.UserDatabase
 import com.example.habithero.infrastructure.data.Room.Data.User
+import com.example.habithero.infrastructure.data.Room.Database.TodoDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -28,7 +28,7 @@ class UserViewModel(application: Application,
 
 
     init {
-        val userDao = UserDatabase.getDatabaseToHabit(application).userDao()
+        val userDao = TodoDatabase.getDatabaseToTodo(application).userDao()
         repository = UserRepositoryImpl(userDao)
         readAllData = repository.readAllHabit
 

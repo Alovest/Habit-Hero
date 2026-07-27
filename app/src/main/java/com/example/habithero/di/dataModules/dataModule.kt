@@ -14,7 +14,6 @@ import com.example.habithero.infrastructure.data.repository.InterPackRepositoryI
 import com.example.habithero.infrastructure.data.repository.TodoListRepositoryImpl
 import com.example.habithero.infrastructure.data.repository.homescreen.UserRepositoryImpl
 import com.example.habithero.infrastructure.data.Room.Database.TodoDatabase
-import com.example.habithero.infrastructure.data.Room.Database.UserDatabase
 import com.example.habithero.infrastructure.data.repository.homescreen.DeleteUsersHabitImpl
 import com.example.habithero.infrastructure.data.repository.homescreen.UpdateUsersHabitImpl
 import com.example.habithero.presentation.ViewModel.InterPackViewModel
@@ -28,9 +27,7 @@ import org.koin.dsl.module
 val dataModule = module {
     //Users part
        //database
-    // single {
-    //        UserDatabase.getDatabaseToHabit(androidApplication()).userDao()
-    //    }
+
        //viewModel
     viewModel {
         UserViewModel(androidApplication(),
@@ -46,6 +43,9 @@ val dataModule = module {
     }
     single {
         TodoDatabase.getDatabaseToTodo(androidApplication()).interPackDao()
+    }
+    single {
+        TodoDatabase.getDatabaseToTodo(androidApplication()).userDao()
     }
         //viewModel
     viewModel{
