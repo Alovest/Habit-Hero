@@ -2,6 +2,14 @@ package com.example.habithero.presentation.MainScreens.PomodoroScreen
 
 import android.inputmethodservice.Keyboard
 import android.text.Layout
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -10,10 +18,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.room.util.TableInfo
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
-import java.lang.reflect.Modifier
 
 
 @Composable
@@ -77,14 +87,14 @@ fun SimpleCountdownTimer(initialSeconds: Int = 10) {
     }
 
     Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Layout.Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(text = "Время: $seconds", fontSize = 48.sp)
         Spacer(modifier = Modifier.height(32.dp))
 
-        Keyboard.Row {
+        Row() {
             Button(
                 onClick = { isRunning = !isRunning },
                 enabled = seconds > 0 || !isRunning

@@ -6,13 +6,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.habithero.infrastructure.data.Room.Dao.InterPackDao
 import com.example.habithero.infrastructure.data.Room.Dao.TodoDao
+import com.example.habithero.infrastructure.data.Room.Dao.UserDao
 import com.example.habithero.infrastructure.data.Room.Data.InterPackages
 import com.example.habithero.infrastructure.data.Room.Data.TodoList
+import com.example.habithero.infrastructure.data.Room.Data.User
 
-@Database(entities = [TodoList::class, InterPackages::class], version = 4, exportSchema = false)
+@Database(entities = [TodoList::class, InterPackages::class, User::class], version = 4, exportSchema = false)
 abstract class TodoDatabase: RoomDatabase() {
     abstract fun todoDao(): TodoDao
     abstract fun interPackDao(): InterPackDao
+
+    abstract fun userDao(): UserDao
     companion object {
         @Volatile
         private var INSTANCE: TodoDatabase? = null

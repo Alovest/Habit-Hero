@@ -10,13 +10,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.habithero.ui.theme.PurpleOfScreen
+import com.example.habithero.ui.theme.backColor
 
 @Composable
 fun CartScreen() {
-    Box(modifier = Modifier.fillMaxSize().background(PurpleOfScreen)){
-    Column(modifier = Modifier.fillMaxSize().background(PurpleOfScreen), verticalArrangement = Arrangement.Center) {
+    Box(modifier = Modifier.fillMaxSize().background(backColor)){
+    Column(modifier = Modifier.fillMaxSize().background(color = backColor), verticalArrangement = Arrangement.Center) {
         Spacer(modifier = Modifier.padding(17.dp))
         Text(text = "4")
     }

@@ -52,6 +52,7 @@ import com.example.habithero.presentation.Navigation.BottomNavigation.NavBarWith
 import com.example.habithero.presentation.ViewModel.TodoListViewModel
 import com.example.habithero.presentation.ViewModel.UserViewModel
 import com.example.habithero.ui.theme.PurpleOfScreen
+import com.example.habithero.ui.theme.backColor
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import java.util.concurrent.TimeUnit
@@ -269,7 +270,7 @@ fun NavGraph() {
         }
     ) { innerPadding ->
         Box(Modifier
-            .background(PurpleOfScreen)
+            .background(backColor)
             .padding(innerPadding)) {
 
             NavHost(navController, startDestination = "Home") {

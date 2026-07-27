@@ -1,7 +1,13 @@
 package com.example.habithero.presentation.MainScreens.HomeScreen
 
 
+import android.content.Context
+import android.graphics.ImageDecoder
+import android.graphics.drawable.AnimatedImageDrawable
+import android.os.Build
 import android.util.Log
+import android.widget.ImageView
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -45,9 +51,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import com.example.habithero.R
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
+import coil3.ImageLoader
+import coil3.compose.AsyncImage
+import coil3.gif.AnimatedImageDecoder
+import coil3.gif.GifDecoder
+import coil3.request.ImageRequest
 import com.example.habithero.infrastructure.WorkManager.NotifyWorker
 import com.example.habithero.infrastructure.data.Room.Data.User
 import com.example.habithero.presentation.ViewModel.UserViewModel
@@ -61,7 +73,9 @@ import kotlin.collections.emptyList
 
 @Composable
 fun HomeScreen(){
-    Column(modifier = Modifier.fillMaxSize().background(backColor)) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .background(backColor)) {
         CardsOfScreens()
     }
 }
@@ -73,6 +87,20 @@ fun HomeScreen(){
             var localWasCheckedDate by remember { mutableStateOf(LocalDate.now()) }
             var isChecked by remember { mutableStateOf(false) }
             val context = LocalContext.current
+            val sharedPref = remember { context.getSharedPreferences("my_prefs", Context.MODE_PRIVATE) }
+            val saveCount = remember { sharedPref.getInt("counter", 0) }
+            var count by remember { mutableStateOf(saveCount) }
+            val imageLoader = remember {
+                ImageLoader.Builder(context)
+                    .components {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+                            add(AnimatedImageDecoder.Factory())
+                        } else {
+                            add(GifDecoder.Factory())
+                        }
+                    }.build()
+            }
+
             fun Notification(){
                 val notificationWork: WorkRequest = OneTimeWorkRequestBuilder<NotifyWorker>()
                     .setInitialDelay(1, TimeUnit.SECONDS)
@@ -96,7 +124,23 @@ fun HomeScreen(){
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(colorOfCard)
-                    )
+                    ) {
+                        Column(modifier = Modifier.fillMaxWidth()) {
+                            //Row(modifier = Modi) { }
+//                            Text(text = "Cчет: $count/100",
+//                                style = MaterialTheme.typography.bodyLarge,
+//                                color = Color.White,
+//                                modifier = Modifier.padding(start = 80.dp, end = 50.dp, top = 10.dp)
+//                            )
+                            Spacer(modifier = Modifier.padding(15.dp))
+                            AsyncImage(
+                                model = R.drawable.cat,
+                                contentDescription = "Cat",
+                                imageLoader = imageLoader,
+                                modifier = Modifier.padding(30.dp)
+                            )
+                        }
+                    }
                 }
 
                 Spacer(modifier = Modifier.padding(10.dp))
@@ -163,6 +207,10 @@ fun HomeScreen(){
                                                     }
                                                     if (!checked){
                                                         Notification()
+                                                    }
+                                                    if (checked){
+                                                        count ++
+                                                        sharedPref.edit().putInt("counter", count).apply()
                                                     }
                                                 },
                                                 colors = CheckboxDefaults.colors(
