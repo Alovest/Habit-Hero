@@ -13,7 +13,6 @@ import com.example.habithero.domain.usecase.UseCasesForTodoListScreen.InterPack.
 import com.example.habithero.infrastructure.data.repository.InterPackRepositoryImpl
 import com.example.habithero.infrastructure.data.repository.TodoListRepositoryImpl
 import com.example.habithero.infrastructure.data.repository.homescreen.UserRepositoryImpl
-import com.example.habithero.infrastructure.data.Room.Database.InterPackDatabase
 import com.example.habithero.infrastructure.data.Room.Database.TodoDatabase
 import com.example.habithero.infrastructure.data.Room.Database.UserDatabase
 import com.example.habithero.infrastructure.data.repository.homescreen.DeleteUsersHabitImpl
@@ -23,14 +22,15 @@ import com.example.habithero.presentation.ViewModel.TodoListViewModel
 import com.example.habithero.presentation.ViewModel.UserViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 
 val dataModule = module {
     //Users part
        //database
-    single {
-        UserDatabase.getDatabaseToHabit(androidApplication()).userDao()
-    }
+    // single {
+    //        UserDatabase.getDatabaseToHabit(androidApplication()).userDao()
+    //    }
        //viewModel
     viewModel {
         UserViewModel(androidApplication(),
@@ -44,24 +44,26 @@ val dataModule = module {
     single {
         TodoDatabase.getDatabaseToTodo(androidApplication()).todoDao()
     }
+    single {
+        TodoDatabase.getDatabaseToTodo(androidApplication()).interPackDao()
+    }
         //viewModel
     viewModel{
         TodoListViewModel(androidApplication(),
         get<CreateTodoUseCase>(),
         get<TodoListRepository>(),
-            get()
+            it.get()
         )
     }
     //
          //database
-    single {
-        InterPackDatabase.getDatabaseToInterPack(androidApplication()).interPackDao()
-    }
+
          //viewModel
-    viewModel{
+    viewModel{(folderId: Long) ->
         InterPackViewModel(androidApplication(),
             get<InterPackAddRepository>(),
-            get<InterPackAddUseCase>()
+            get<InterPackAddUseCase>(),
+            folderId
         )
     }
     //

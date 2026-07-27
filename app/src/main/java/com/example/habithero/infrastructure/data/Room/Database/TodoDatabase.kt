@@ -9,7 +9,7 @@ import com.example.habithero.infrastructure.data.Room.Dao.TodoDao
 import com.example.habithero.infrastructure.data.Room.Data.InterPackages
 import com.example.habithero.infrastructure.data.Room.Data.TodoList
 
-@Database(entities = [TodoList::class, InterPackages::class], version = 3, exportSchema = false)
+@Database(entities = [TodoList::class, InterPackages::class], version = 4, exportSchema = false)
 abstract class TodoDatabase: RoomDatabase() {
     abstract fun todoDao(): TodoDao
     abstract fun interPackDao(): InterPackDao

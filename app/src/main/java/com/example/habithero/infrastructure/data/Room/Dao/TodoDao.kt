@@ -9,9 +9,9 @@ import com.example.habithero.infrastructure.data.Room.Data.TodoList
 
 @Dao
 interface TodoDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun getTodoList(todo: TodoList)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun getTodoList(todo: TodoList): Long
 
-    @Query("SELECT * FROM todo_database WHERE IPid = :IPid")
-    fun getAllTodo(IPid: Long): LiveData<List<TodoList>>
+    @Query("SELECT * FROM todo_database ORDER BY Todoid ASC")
+    fun getAllTodo(): LiveData<List<TodoList>>
 }

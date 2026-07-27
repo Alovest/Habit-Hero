@@ -44,7 +44,7 @@ val domainModule = module{
     }
     //repository
     single<TodoListRepository> {
-        TodoListRepositoryImpl(get(), get())
+        TodoListRepositoryImpl(get())
     }
     //InterPackages
     //use case

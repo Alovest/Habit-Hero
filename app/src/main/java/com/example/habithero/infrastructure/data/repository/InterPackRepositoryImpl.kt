@@ -10,4 +10,8 @@ class InterPackRepositoryImpl(override val interPackDao: InterPackDao): InterPac
     override suspend fun addInterPackItem(item: InterPackages) {
         super.addInterPackItem(item)
     }
+
+    override fun getItemsFromFolder(folderId: Long): LiveData<List<InterPackages>> {
+        return interPackDao.getItemsFromFolder(folderId)
+    }
 }

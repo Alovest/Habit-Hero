@@ -7,8 +7,9 @@ import com.example.habithero.infrastructure.data.Room.Data.TodoList
 interface TodoListRepository {
     val todoDao: TodoDao
     val readAllTodo: LiveData<List<TodoList>>
-    val IPid: Long
-    suspend fun addItemTodoList(IPid: TodoList) {
-        todoDao.getTodoList(IPid)
-    }
+
+    // Blueprint only: remove the curly brackets body here
+    suspend fun addItemTodoList(todo: TodoList)
+
+    fun getAllTodo(ipid: Long?): LiveData<List<TodoList>>
 }

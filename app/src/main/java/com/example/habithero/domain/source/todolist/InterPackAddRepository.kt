@@ -10,4 +10,5 @@ interface InterPackAddRepository {
     suspend fun addInterPackItem(item: InterPackages) {
         interPackDao.getInterPacksItem(item)
     }
+    fun getItemsFromFolder(folderId: Long): LiveData<List<InterPackages>>
 }

@@ -14,4 +14,7 @@ interface InterPackDao {
 
     @Query("SELECT * FROM inter_packages ORDER BY InterPackagesid ASC")
     fun getAllItems(): LiveData<List<InterPackages>>
+
+    @Query("SELECT * FROM inter_packages WHERE folderId = :folderId ORDER BY InterPackagesid ASC")
+    fun getItemsFromFolder(folderId: Long): LiveData<List<InterPackages>>
 }

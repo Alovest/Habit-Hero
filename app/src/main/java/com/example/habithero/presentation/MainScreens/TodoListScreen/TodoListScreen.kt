@@ -29,6 +29,9 @@ import androidx.compose.material.TextButton
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -49,98 +52,231 @@ import com.example.habithero.presentation.ViewModel.TodoListViewModel
 import com.example.habithero.ui.theme.backColor
 import com.example.habithero.ui.theme.colorOfCard
 import org.koin.androidx.compose.koinViewModel
+//@Composable
+//fun TodoListScreen(viewModel: TodoListViewModel, navController: NavController) {
+//    val todoList by viewModel.readAllData.observeAsState(emptyList())
+//    var showDialog by remember { mutableStateOf(false) }
+//Box(modifier = Modifier.background(backColor).fillMaxSize()) {
+//    Column(modifier = Modifier.fillMaxSize()) {
+//        Text(
+//            text = "Папки с задачами:",
+//            style = androidx.compose.material.MaterialTheme.typography.h5,
+//            modifier = Modifier.padding(
+//                start = 12.dp,
+//                end = 6.dp,
+//                top = 8.dp
+//            ),
+//            color = Color.White
+//        )
+//        LazyVerticalGrid(
+//            modifier = Modifier
+//                .fillMaxSize(),
+//            columns = GridCells.Fixed(2)
+//        ) {
+//            items(todoList) { items ->
+//                Card(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .height(130.dp)
+//                        .padding(
+//                            start = 12.dp,
+//                            end = 6.dp,
+//                            top = 8.dp
+//                        )
+//                        .shadow(
+//                            10.dp,
+//                            shape = RoundedCornerShape(14.dp)
+//                        )
+//                        .clickable {
+//                            if (items.titleOfTodo.isNotBlank()) {
+//                                navController.navigate("details/${items.titleOfTodo}")
+//                            } else {
+//                                Log.d("data is not sending", "data: ${items.titleOfTodo}")
+//                            }
+//                        },
+//                    elevation = 8.dp,
+//                    shape = RoundedCornerShape(10.dp)
+//                ) {
+//                    Box(
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .background(colorOfCard),
+//                        contentAlignment = Alignment.CenterStart
+//
+//                    ) {
+//                        Row(
+//                            modifier = Modifier
+//                                .padding(8.dp),
+//                            verticalAlignment = Alignment
+//                                .CenterVertically
+//                        ) {
+//                            Text(
+//                                text = items.titleOfTodo,
+//                                color = Color.White,
+//                                style = MaterialTheme.typography.titleMedium
+//                            )
+//                        }
+//                        Spacer(
+//                            modifier = Modifier
+//                                .padding(8.dp)
+//                        )
+//                    }
+//                }
+//            }
+//        }
+//    }
+//Box(modifier = Modifier.align(BottomEnd)) {
+//    FlActionBtn(
+//        onClick = { showDialog = true },
+//        modifier = Modifier
+//            .padding(16.dp)
+//    )
+//}
+//    if (showDialog) {
+//        showDialogFun(
+//            onDismiss = { showDialog = false },
+//            viewModel = viewModel
+//        )
+//    }
+//}
+//}
+//
+//@Composable
+//fun FlActionBtn(onClick: () -> Unit, modifier: Modifier) {
+//    FloatingActionButton(onClick = { onClick() }) {
+//        Icon(Icons.Filled.Add, "Floating action button")
+//    }
+//}
+//
+//@Composable
+//fun showDialogFun(
+//    onDismiss: () -> Unit,
+//    viewModel: TodoListViewModel
+//) {
+//    var inputName by remember { mutableStateOf("") }
+//
+//    AlertDialog(
+//        onDismissRequest = { onDismiss() },
+//        title = { Text("Создайте папку") },
+//        text = {
+//            Column {
+//                Text("Введите название папки:")
+//                Spacer(modifier = Modifier.height(8.dp))
+//                TextField(
+//                    value = inputName,
+//                    onValueChange = { inputName = it },
+//                    singleLine = true,
+//                    placeholder = { Text("Название дела") },
+//                    modifier = Modifier.fillMaxWidth()
+//                )
+//            }
+//        },
+//        confirmButton = {
+//            Button(onClick = {
+//                if (inputName.isNotBlank()) {
+//                    val newTodo = TodoList(titleOfTodo = inputName, IPid = viewModel.IPid)
+//                    viewModel.getTodoFromUser(newTodo)
+//                    inputName = ""
+//                    onDismiss()
+//                }
+//            }) {
+//                Text("Создать")
+//            }
+//        },
+//        dismissButton = {
+//            TextButton(onClick = { onDismiss() }) {
+//                Text("Отмена")
+//            }
+//        }
+//    )
+//}
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TodoListScreen(viewModel: TodoListViewModel, navController: NavController) {
     val todoList by viewModel.readAllData.observeAsState(emptyList())
     var showDialog by remember { mutableStateOf(false) }
-Box(modifier = Modifier.background(backColor).fillMaxSize()) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        Text(
-            text = "Папки с задачами:",
-            style = androidx.compose.material.MaterialTheme.typography.h5,
-            modifier = Modifier.padding(
-                start = 12.dp,
-                end = 6.dp,
-                top = 8.dp
-            ),
-            color = Color.White
-        )
-        LazyVerticalGrid(
-            modifier = Modifier
-                .fillMaxSize(),
-            columns = GridCells.Fixed(2)
-        ) {
-            items(todoList) { items ->
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(130.dp)
-                        .padding(
-                            start = 12.dp,
-                            end = 6.dp,
-                            top = 8.dp
-                        )
-                        .shadow(
-                            10.dp,
-                            shape = RoundedCornerShape(14.dp)
-                        )
-                        .clickable {
-                            if (items.titleOfTodo.isNotBlank()) {
-                                navController.navigate("details/${items.titleOfTodo}")
-                            } else {
-                                Log.d("data is not sending", "data: ${items.titleOfTodo}")
-                            }
-                        },
-                    elevation = 8.dp,
-                    shape = RoundedCornerShape(10.dp)
-                ) {
-                    Box(
+
+    Box(modifier = Modifier.background(backColor).fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            Text(
+                text = "Папки с задачами:",
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.padding(
+                    start = 12.dp,
+                    end = 6.dp,
+                    top = 8.dp
+                ),
+                color = Color.White
+            )
+            LazyVerticalGrid(
+                modifier = Modifier.fillMaxSize(),
+                columns = GridCells.Fixed(2)
+            ) {
+                items(todoList) { items ->
+                    Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(colorOfCard),
-                        contentAlignment = Alignment.CenterStart
-
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .padding(8.dp),
-                            verticalAlignment = Alignment
-                                .CenterVertically
-                        ) {
-                            Text(
-                                text = items.titleOfTodo,
-                                color = Color.White,
-                                style = MaterialTheme.typography.titleMedium
+                            .height(130.dp)
+                            .padding(
+                                start = 12.dp,
+                                end = 6.dp,
+                                top = 8.dp
                             )
+                            .shadow(
+                                10.dp,
+                                shape = RoundedCornerShape(14.dp)
+                            )
+                            .clickable {
+                                if (items.titleOfTodo.isNotBlank()) {
+                                    // FIXED: Pass the folder title and its true primary key (Todoid)
+                                    navController.navigate("details/${items.titleOfTodo}/${items.Todoid}")
+                                } else {
+                                    Log.d("data is not sending", "data: ${items.titleOfTodo}")
+                                }
+                            },
+                        shape = RoundedCornerShape(10.dp),
+                        colors = CardDefaults.cardColors(containerColor = colorOfCard)
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.CenterStart
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = items.titleOfTodo,
+                                    color = Color.White,
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                            }
                         }
-                        Spacer(
-                            modifier = Modifier
-                                .padding(8.dp)
-                        )
                     }
                 }
             }
         }
+
+        Box(modifier = Modifier.align(Alignment.BottomEnd)) {
+            FlActionBtn(
+                onClick = { showDialog = true },
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+
+        if (showDialog) {
+            showDialogFun(
+                onDismiss = { showDialog = false },
+                viewModel = viewModel
+            )
+        }
     }
-Box(modifier = Modifier.align(BottomEnd)) {
-    FlActionBtn(
-        onClick = { showDialog = true },
-        modifier = Modifier
-            .padding(16.dp)
-    )
-}
-    if (showDialog) {
-        showDialogFun(
-            onDismiss = { showDialog = false },
-            viewModel = viewModel
-        )
-    }
-}
 }
 
 @Composable
 fun FlActionBtn(onClick: () -> Unit, modifier: Modifier) {
-    FloatingActionButton(onClick = { onClick() }) {
+    FloatingActionButton(onClick = { onClick() }, modifier = modifier) {
         Icon(Icons.Filled.Add, "Floating action button")
     }
 }
@@ -170,8 +306,12 @@ fun showDialogFun(
         },
         confirmButton = {
             Button(onClick = {
-                if (inputName.isNotBlank()) {
-                    val newTodo = TodoList(titleOfTodo = inputName, IPid = 1)
+                val trimmedName = inputName.trim()
+                if (trimmedName.isNotBlank()) {
+                    // FIXED: Simple creation without any foreign key baggage
+                    val newTodo = TodoList(
+                        titleOfTodo = trimmedName
+                    )
                     viewModel.getTodoFromUser(newTodo)
                     inputName = ""
                     onDismiss()
@@ -187,3 +327,4 @@ fun showDialogFun(
         }
     )
 }
+

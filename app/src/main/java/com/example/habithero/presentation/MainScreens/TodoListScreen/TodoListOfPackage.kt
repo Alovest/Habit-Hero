@@ -1,5 +1,6 @@
 package com.example.habithero.presentation.MainScreens.TodoListScreen
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,6 +40,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.modifier.modifierLocalOf
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -51,41 +53,268 @@ import com.example.habithero.presentation.ViewModel.TodoListViewModel
 import com.example.habithero.ui.theme.backColor
 import com.example.habithero.ui.theme.colorOfCard
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 import java.nio.file.WatchEvent
 
+//@Composable
+//fun TodoListOfPackage(todoList: TodoList, navController: NavController, viewModel: InterPackViewModel = koinViewModel()){
+//    val interPackList by viewModel.readAllData.observeAsState(emptyList())
+//    var showDialog by remember { mutableStateOf(false) }
+//    Box(modifier = Modifier.fillMaxSize()) {
+//        Column(modifier = Modifier.fillMaxSize().background(backColor)) {
+//            Row(modifier = Modifier.fillMaxWidth(), Arrangement.Center) {
+//                Text(
+//                    text = "Папка ${todoList.titleOfTodo}",
+//                    style = androidx.compose.material.MaterialTheme.typography.h5,
+//                    color = Color.White
+//                )
+//            }
+//            LazyColumn(modifier = Modifier.fillMaxSize()) {
+//                items(interPackList) { item ->
+//                    Text(
+//                        text = item.titleOfInterPackages
+//                    )
+//                }
+//            }
+//        }
+//        Box(modifier = Modifier.align(BottomEnd)) {
+//            FloatingActionBtn(
+//                onClick = { showDialog = true },
+//                modifier = Modifier
+//                    .padding(16.dp)
+//            )
+//        }
+//    }
+//
+//    if (showDialog){
+//        ShowDialogFun(
+//            onDismiss = {showDialog = false},
+//            viewModel = viewModel
+//        )
+//    }
+//}
+//
+//@Composable
+//fun FloatingActionBtn(
+//    onClick: () -> Unit,
+//    modifier: Modifier
+//){
+//     FloatingActionButton(
+//         onClick =  {
+//             onClick()
+//         }
+//     ){
+//         Icon(
+//             Icons.Filled.Add,
+//             "Floating Action Button"
+//         )
+//     }
+//}
+//
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Composable
+//fun ShowDialogFun(
+//    onDismiss: () -> Unit,
+//    viewModel: InterPackViewModel
+//){
+//    var inputName by remember { mutableStateOf("") }
+//
+//    AlertDialog(
+//        onDismissRequest = {
+//          onDismiss()
+//        },
+//        title = { Text("Создайте задачу") },
+//        text = {
+//            TextField(
+//                    value = inputName,
+//                    onValueChange = { inputName = it },
+//                    singleLine = true,
+//                    placeholder = { Text("Название задачи") },
+//                    modifier = Modifier.fillMaxWidth()
+//            )
+//        },
+//        confirmButton = {
+//           Button(onClick = {
+//               if (inputName.isNotBlank()) {
+//                   val newItem = InterPackages(titleOfInterPackages = inputName)
+//                   viewModel.addInterPackViewModel(newItem)
+//                   inputName = ""
+//                   onDismiss
+//               }
+//           }) {
+//               Text("Создать")
+//           }
+//        },
+//        dismissButton = {
+//            TextButton(onClick = {onDismiss()}) {
+//                Text("Закрыть")
+//            }
+//        }
+//    )
+//}
+
+
+//@Composable
+//fun TodoListOfPackage(
+//    todoList: TodoList,
+//    folderId: Long,
+//    navController: NavController,
+//    viewModel: InterPackViewModel = koinViewModel(parameters = {parametersOf(folderId)})
+//) {
+//    // NOTE: In your InterPackViewModel init, you should pass todoList.Todoid to
+//    // filter viewModel.readAllData using your updated InterPackDao query.
+//    val interPackList by viewModel.readAllData.observeAsState(emptyList())
+//    var showDialog by remember { mutableStateOf(false) }
+//
+//    Box(modifier = Modifier.fillMaxSize()) {
+//        Column(modifier = Modifier.fillMaxSize().background(backColor)) {
+//            Row(
+//                modifier = Modifier.fillMaxWidth().padding(16.dp),
+//                horizontalArrangement = Arrangement.Center
+//            ) {
+//                Text(
+//                    text = "Папка ${todoList.titleOfTodo}",
+//                    style = MaterialTheme.typography.headlineMedium,
+//                    color = Color.White
+//                )
+//            }
+//            LazyColumn(modifier = Modifier.fillMaxSize()) {
+//                items(interPackList) { item ->
+//                    Text(
+//                        text = item.titleOfInterPackages,
+//                        color = Color.White,
+//                        modifier = Modifier.padding(16.dp)
+//                    )
+//                }
+//            }
+//        }
+//
+//        Box(modifier = Modifier.align(Alignment.BottomEnd)) {
+//            FloatingActionBtn(
+//                onClick = { showDialog = true },
+//                modifier = Modifier.padding(16.dp)
+//            )
+//        }
+//    }
+//
+//    if (showDialog) {
+//        ShowDialogFun(
+//            folderId = todoList.Todoid, // Pass current folder ID down to the dialog
+//            onDismiss = { showDialog = false },
+//            viewModel = viewModel
+//        )
+//    }
+//}
+//
+//@Composable
+//fun FloatingActionBtn(
+//    onClick: () -> Unit,
+//    modifier: Modifier
+//) {
+//    FloatingActionButton(
+//        onClick = { onClick() },
+//        modifier = modifier
+//    ) {
+//        Icon(
+//            Icons.Filled.Add,
+//            "Floating Action Button"
+//        )
+//    }
+//}
+//
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Composable
+//fun ShowDialogFun(
+//    folderId: Long, // Received parent folder primary key
+//    onDismiss: () -> Unit,
+//    viewModel: InterPackViewModel
+//) {
+//    var inputName by remember { mutableStateOf("") }
+//
+//    AlertDialog(
+//        onDismissRequest = { onDismiss() },
+//        title = { Text("Создайте задачу") },
+//        text = {
+//            TextField(
+//                value = inputName,
+//                onValueChange = { inputName = it },
+//                singleLine = true,
+//                placeholder = { Text("Название задачи") },
+//                modifier = Modifier.fillMaxWidth()
+//            )
+//        },
+//        confirmButton = {
+//            Button(onClick = {
+//                val trimmedName = inputName.trim()
+//                if (trimmedName.isNotBlank()) {
+//                    // FIXED: Attaching folderId to preserve Foreign Key rules
+//                    val newItem = InterPackages(
+//                        titleOfInterPackages = trimmedName,
+//                        folderId = folderId
+//                    )
+//                    viewModel.addInterPackViewModel(newItem)
+//                    inputName = ""
+//                    onDismiss() // FIXED: Changed from 'onDismiss' reference to invocation
+//                }
+//            }) {
+//                Text("Создать")
+//            }
+//        },
+//        dismissButton = {
+//            TextButton(onClick = { onDismiss() }) {
+//                Text("Закрыть")
+//            }
+//        }
+//    )
+//}
+
 @Composable
-fun TodoListOfPackage(todoList: TodoList, navController: NavController, viewModel: InterPackViewModel = koinViewModel()){
-    val interPackList by viewModel.readAllData.observeAsState(emptyList())
+fun TodoListOfPackage(
+    todoList: TodoList,
+    folderId: Long,
+    navController: NavController
+) {
+    // FIXED: Initialize inside the body so parametersOf(folderId) dynamically evaluates the actual folderId
+    val viewModel: InterPackViewModel = koinViewModel(parameters = { parametersOf(folderId) })
+
+    val interPackList by viewModel.interPackList.observeAsState(emptyList())
     var showDialog by remember { mutableStateOf(false) }
+
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize().background(backColor)) {
-            Row(modifier = Modifier.fillMaxWidth(), Arrangement.Center) {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
                 Text(
                     text = "Папка ${todoList.titleOfTodo}",
-                    style = androidx.compose.material.MaterialTheme.typography.h5,
+                    style = MaterialTheme.typography.headlineMedium,
                     color = Color.White
                 )
             }
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(interPackList) { item ->
                     Text(
-                        text = item.titleOfInterPackages
+                        text = item.titleOfInterPackages,
+                        color = Color.White,
+                        modifier = Modifier.padding(16.dp)
                     )
                 }
             }
         }
-        Box(modifier = Modifier.align(BottomEnd)) {
+
+        Box(modifier = Modifier.align(Alignment.BottomEnd)) {
             FloatingActionBtn(
                 onClick = { showDialog = true },
-                modifier = Modifier
-                    .padding(16.dp)
+                modifier = Modifier.padding(16.dp)
             )
         }
     }
 
-    if (showDialog){
+    if (showDialog) {
         ShowDialogFun(
-            onDismiss = {showDialog = false},
+            folderId = folderId, // FIXED: Pass the verified folderId argument directly
+            onDismiss = { showDialog = false },
             viewModel = viewModel
         )
     }
@@ -95,57 +324,73 @@ fun TodoListOfPackage(todoList: TodoList, navController: NavController, viewMode
 fun FloatingActionBtn(
     onClick: () -> Unit,
     modifier: Modifier
-){
-     FloatingActionButton(
-         onClick =  {
-             onClick()
-         }
-     ){
-         Icon(
-             Icons.Filled.Add,
-             "Floating Action Button"
-         )
-     }
+) {
+    FloatingActionButton(
+        onClick = { onClick() },
+        modifier = modifier
+    ) {
+        Icon(
+            Icons.Filled.Add,
+            "Floating Action Button"
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ShowDialogFun(
+    folderId: Long, // ID папки
     onDismiss: () -> Unit,
     viewModel: InterPackViewModel
-){
+) {
     var inputName by remember { mutableStateOf("") }
+    val context = LocalContext.current
 
     AlertDialog(
-        onDismissRequest = {
-          onDismiss()
-        },
+        onDismissRequest = { onDismiss() },
         title = { Text("Создайте задачу") },
         text = {
             TextField(
-                    value = inputName,
-                    onValueChange = { inputName = it },
-                    singleLine = true,
-                    placeholder = { Text("Название задачи") },
-                    modifier = Modifier.fillMaxWidth()
+                value = inputName,
+                onValueChange = { inputName = it },
+                singleLine = true,
+                placeholder = { Text("Название задачи") },
+                modifier = Modifier.fillMaxWidth()
             )
         },
         confirmButton = {
-           Button(onClick = {
-               if (inputName.isNotBlank()) {
-                   val newItem = InterPackages(titleOfInterPackages = inputName)
-                   viewModel.addInterPackViewModel(newItem)
-                   inputName = ""
-                   onDismiss
-               }
-           }) {
-               Text("Создать")
-           }
+            Button(onClick = {
+                val trimmedName = inputName.trim()
+
+                // КРИТИЧЕСКАЯ ПРОВЕРКА: Проверяем, что ID папки пришел корректным
+                if (folderId == 0L) {
+                    android.util.Log.e("ROOM_CRITICAL_ERROR", "Попытка сохранить InterPackages с folderId = 0L! Операция заблокирована.")
+                    Toast.makeText(context, "Ошибка: Неверный ID папки (0)", Toast.LENGTH_LONG).show()
+                    return@Button // Прерываем выполнение, спасая приложение от краша!
+                }
+
+                if (trimmedName.isNotBlank()) {
+                    val newItem = InterPackages(
+                        titleOfInterPackages = trimmedName,
+                        folderId = folderId // Теперь этот ID точно больше 0
+                    )
+
+                    // Логируем перед отправкой в UseCase
+                    android.util.Log.d("ROOM_SUCCESS_CHECK", "Отправка в базу: задача=$trimmedName, folderId=$folderId")
+
+                    viewModel.addInterPackViewModel(newItem)
+                    inputName = ""
+                    onDismiss()
+                }
+            }) {
+                Text("Создать")
+            }
         },
         dismissButton = {
-            TextButton(onClick = {onDismiss()}) {
+            TextButton(onClick = { onDismiss() }) {
                 Text("Закрыть")
             }
         }
     )
 }
+
