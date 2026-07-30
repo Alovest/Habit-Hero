@@ -29,8 +29,10 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Card
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -116,25 +118,32 @@ fun HomeScreen(){
                         .fillMaxWidth()
                         .height(400.dp)
                         .shadow(6.dp, shape = RoundedCornerShape(16.dp))
-                        .padding(start = 16.dp, end = 16.dp, top = 8.dp),
-                    elevation = 8.dp,
-                    shape = RoundedCornerShape(16.dp)
+                        .padding(start = 16.dp, end = 16.dp, top = 8.dp)
+                        .shadow(
+                            10.dp,
+                            shape = RoundedCornerShape(14.dp)
+                        ),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = colorOfCard)
                 ) {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(colorOfCard)
                     ) {
                         Column(modifier = Modifier.fillMaxWidth()) {
                             //Row(modifier = Modi) { }
-//                            Text(text = "Cчет: $count/100",
-//                                style = MaterialTheme.typography.bodyLarge,
-//                                color = Color.White,
-//                                modifier = Modifier.padding(start = 80.dp, end = 50.dp, top = 10.dp)
-//                            )
+                            Text(text = if (count <= 100) "Cчет: $count/100" else "Счет: $count/150",
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = Color.White,
+                                modifier = Modifier.padding(start = 80.dp, end = 50.dp, top = 10.dp)
+                            )
                             Spacer(modifier = Modifier.padding(15.dp))
                             AsyncImage(
-                                model = R.drawable.cat,
+                                model = if (count <= 100) {
+                                    R.drawable.cat_2_phaza
+                                } else {
+                                    R.drawable.cat
+                                },
                                 contentDescription = "Cat",
                                 imageLoader = imageLoader,
                                 modifier = Modifier.padding(30.dp)
@@ -168,14 +177,16 @@ fun HomeScreen(){
                                     .fillMaxWidth()
                                     .padding(start = 16.dp, end = 16.dp, top = 8.dp)
                                     .shadow(10.dp, shape = RoundedCornerShape(14.dp))
-                                    .heightIn(min = 60.dp),
-                                elevation = 8.dp,
+                                    .heightIn(min = 60.dp)
+                                    .shadow(10.dp,
+                                        shape = RoundedCornerShape(14.dp)
+                                    ),
+                                colors = CardDefaults.cardColors(containerColor = colorOfCard),
                                 shape = RoundedCornerShape(10.dp)
                             ) {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .background(colorOfCard)
                                         .padding(16.dp),
                                     contentAlignment = Alignment.CenterStart
                                 ) {
