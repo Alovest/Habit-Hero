@@ -1,6 +1,6 @@
-package com.example.habithero.domain.usecase.UseCasesForHomeScreen
+package com.example.habithero.domain.usecase.UseCasesForHomeScreen.habitsActs
 
-import com.example.habithero.domain.source.homescreen.UsersRepository
+import com.example.habithero.domain.source.homescreen.habitsActs.UsersRepository
 import com.example.habithero.infrastructure.data.Room.Data.User
 
 class FetchDataUserUseCase(

@@ -1,20 +1,23 @@
 package com.example.habithero.di.domainModules
 
-import com.example.habithero.domain.source.homescreen.DeleteUsersHabitRepository
-import com.example.habithero.domain.source.homescreen.UpdateUsersHabit
-import com.example.habithero.domain.source.homescreen.UsersRepository
+import com.example.habithero.domain.source.homescreen.counterHabit.CounterHabitRepository
+import com.example.habithero.domain.source.homescreen.habitsActs.DeleteUsersHabitRepository
+import com.example.habithero.domain.source.homescreen.habitsActs.UpdateUsersHabit
+import com.example.habithero.domain.source.homescreen.habitsActs.UsersRepository
 import com.example.habithero.domain.source.todolist.InterPackAddRepository
 import com.example.habithero.domain.source.todolist.TodoListRepository
-import com.example.habithero.domain.usecase.UseCasesForHomeScreen.DeleteUsersHabitUseCase
-import com.example.habithero.domain.usecase.UseCasesForHomeScreen.FetchDataUserUseCase
-import com.example.habithero.domain.usecase.UseCasesForHomeScreen.UpdateUsersHabitUseCase
+import com.example.habithero.domain.usecase.UseCasesForHomeScreen.counterHabit.CounterHabitUsecase
+import com.example.habithero.domain.usecase.UseCasesForHomeScreen.habitsActs.DeleteUsersHabitUseCase
+import com.example.habithero.domain.usecase.UseCasesForHomeScreen.habitsActs.FetchDataUserUseCase
+import com.example.habithero.domain.usecase.UseCasesForHomeScreen.habitsActs.UpdateUsersHabitUseCase
 import com.example.habithero.domain.usecase.UseCasesForTodoListScreen.CreateTodoUseCase
 import com.example.habithero.domain.usecase.UseCasesForTodoListScreen.InterPack.InterPackAddUseCase
-import com.example.habithero.infrastructure.data.repository.InterPackRepositoryImpl
-import com.example.habithero.infrastructure.data.repository.TodoListRepositoryImpl
-import com.example.habithero.infrastructure.data.repository.homescreen.DeleteUsersHabitImpl
-import com.example.habithero.infrastructure.data.repository.homescreen.UpdateUsersHabitImpl
-import com.example.habithero.infrastructure.data.repository.homescreen.UserRepositoryImpl
+import com.example.habithero.infrastructure.data.repository.homescreen.counterHabit.CounterHabitRepositoryImpl
+import com.example.habithero.infrastructure.data.repository.todoList.InterPackRepositoryImpl
+import com.example.habithero.infrastructure.data.repository.todoList.TodoListRepositoryImpl
+import com.example.habithero.infrastructure.data.repository.homescreen.habitsActs.DeleteUsersHabitImpl
+import com.example.habithero.infrastructure.data.repository.homescreen.habitsActs.UpdateUsersHabitImpl
+import com.example.habithero.infrastructure.data.repository.homescreen.habitsActs.UserRepositoryImpl
 import org.koin.dsl.module
 
 val domainModule = module{
@@ -54,5 +57,11 @@ val domainModule = module{
     //repository
     single<InterPackAddRepository> {
         InterPackRepositoryImpl(get())
+    }
+    single<CounterHabitRepository> {
+        CounterHabitRepositoryImpl(get())
+    }
+    factory<CounterHabitUsecase> {
+        CounterHabitUsecase(get())
     }
 }

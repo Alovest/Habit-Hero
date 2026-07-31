@@ -5,11 +5,11 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.habithero.domain.source.homescreen.UsersRepository
-import com.example.habithero.domain.usecase.UseCasesForHomeScreen.DeleteUsersHabitUseCase
-import com.example.habithero.domain.usecase.UseCasesForHomeScreen.FetchDataUserUseCase
-import com.example.habithero.domain.usecase.UseCasesForHomeScreen.UpdateUsersHabitUseCase
-import com.example.habithero.infrastructure.data.repository.homescreen.UserRepositoryImpl
+import com.example.habithero.domain.source.homescreen.habitsActs.UsersRepository
+import com.example.habithero.domain.usecase.UseCasesForHomeScreen.habitsActs.DeleteUsersHabitUseCase
+import com.example.habithero.domain.usecase.UseCasesForHomeScreen.habitsActs.FetchDataUserUseCase
+import com.example.habithero.domain.usecase.UseCasesForHomeScreen.habitsActs.UpdateUsersHabitUseCase
+import com.example.habithero.infrastructure.data.repository.homescreen.habitsActs.UserRepositoryImpl
 import com.example.habithero.infrastructure.data.Room.Data.User
 import com.example.habithero.infrastructure.data.Room.Database.TodoDatabase
 import kotlinx.coroutines.Dispatchers

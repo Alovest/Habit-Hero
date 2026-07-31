@@ -1,4 +1,4 @@
-package com.example.habithero.domain.source.homescreen
+package com.example.habithero.domain.source.homescreen.habitsActs
 
 import com.example.habithero.infrastructure.data.Room.Dao.UserDao
 import com.example.habithero.infrastructure.data.Room.Data.User

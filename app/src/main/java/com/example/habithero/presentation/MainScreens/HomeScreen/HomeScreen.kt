@@ -39,6 +39,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.livedata.observeAsState
@@ -64,6 +65,7 @@ import coil3.gif.GifDecoder
 import coil3.request.ImageRequest
 import com.example.habithero.infrastructure.WorkManager.NotifyWorker
 import com.example.habithero.infrastructure.data.Room.Data.User
+import com.example.habithero.presentation.ViewModel.CounterHabitViewModel
 import com.example.habithero.presentation.ViewModel.UserViewModel
 import com.example.habithero.ui.theme.backColor
 import com.example.habithero.ui.theme.colorOfCard
@@ -84,14 +86,15 @@ fun HomeScreen(){
         @Composable
         fun CardsOfScreens() {
             val viewModel: UserViewModel = koinViewModel()
+            val viewModelForCounter: CounterHabitViewModel = koinViewModel()
             val users by viewModel.readAllData.observeAsState(emptyList())
             var expandedUserId by remember { mutableStateOf<Int?>(null) }
             var localWasCheckedDate by remember { mutableStateOf(LocalDate.now()) }
             var isChecked by remember { mutableStateOf(false) }
             val context = LocalContext.current
-            val sharedPref = remember { context.getSharedPreferences("my_prefs", Context.MODE_PRIVATE) }
-            val saveCount = remember { sharedPref.getInt("counter", 0) }
-            var count by remember { mutableStateOf(saveCount) }
+//            val sharedPref = remember { context.getSharedPreferences("my_prefs", Context.MODE_PRIVATE) }
+//            val saveCount = remember { sharedPref.getInt("counter", 0) }
+            val count by viewModelForCounter.counterValue.collectAsState()
             val imageLoader = remember {
                 ImageLoader.Builder(context)
                     .components {
@@ -220,8 +223,9 @@ fun HomeScreen(){
                                                         Notification()
                                                     }
                                                     if (checked){
-                                                        count ++
-                                                        sharedPref.edit().putInt("counter", count).apply()
+//                                                        count ++
+//                                                        sharedPref.edit().putInt("counter", count).apply()
+                                                        viewModelForCounter.counter()
                                                     }
                                                 },
                                                 colors = CheckboxDefaults.colors(

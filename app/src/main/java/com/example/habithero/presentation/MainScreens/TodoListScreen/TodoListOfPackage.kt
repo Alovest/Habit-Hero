@@ -71,7 +71,6 @@ fun TodoListOfPackage(
     folderId: Long,
     navController: NavController
 ) {
-    // FIXED: Initialize inside the body so parametersOf(folderId) dynamically evaluates the actual folderId
     val viewModel: InterPackViewModel = koinViewModel(parameters = { parametersOf(folderId) })
 
     val interPackList by viewModel.interPackList.observeAsState(emptyList())

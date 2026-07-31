@@ -1,6 +1,6 @@
-package com.example.habithero.infrastructure.data.repository.homescreen
+package com.example.habithero.infrastructure.data.repository.homescreen.habitsActs
 
-import com.example.habithero.domain.source.homescreen.DeleteUsersHabitRepository
+import com.example.habithero.domain.source.homescreen.habitsActs.DeleteUsersHabitRepository
 import com.example.habithero.infrastructure.data.Room.Dao.UserDao
 import com.example.habithero.infrastructure.data.Room.Data.User
 

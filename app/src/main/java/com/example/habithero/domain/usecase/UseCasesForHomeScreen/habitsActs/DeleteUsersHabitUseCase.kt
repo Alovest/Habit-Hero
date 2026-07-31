@@ -1,6 +1,6 @@
-package com.example.habithero.domain.usecase.UseCasesForHomeScreen
+package com.example.habithero.domain.usecase.UseCasesForHomeScreen.habitsActs
 
-import com.example.habithero.domain.source.homescreen.DeleteUsersHabitRepository
+import com.example.habithero.domain.source.homescreen.habitsActs.DeleteUsersHabitRepository
 import com.example.habithero.infrastructure.data.Room.Data.User
 
 class DeleteUsersHabitUseCase(
