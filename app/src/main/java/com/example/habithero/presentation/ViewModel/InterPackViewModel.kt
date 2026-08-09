@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class InterPackViewModel(
     application: Application,
-    private val repository: InterPackAddRepository, // Используем предоставленный Koin репозиторий
+    private val repository: InterPackAddRepository,
     private val useCase: InterPackAddUseCase,
     val folderId: Long
 ) : AndroidViewModel(application) {
@@ -23,9 +23,7 @@ class InterPackViewModel(
     private val allInterPackList = MutableLiveData<List<InterPackages>>()
     val interPackList: LiveData<List<InterPackages>> = allInterPackList
 
-    // ИСПРАВЛЕНО: Блок init больше не создает базы данных вручную!
     init {
-        // Синхронизируем LiveData потоки, если это необходимо вашему интерфейсу
         readAllData.observeForever { data ->
             allInterPackList.postValue(data ?: emptyList())
         }
@@ -34,7 +32,7 @@ class InterPackViewModel(
     fun addInterPackViewModel(item: InterPackages) {
         viewModelScope.launch(Dispatchers.IO) {
             if (item.folderId == folderId && item.folderId > 0L) {
-                useCase.execute(item) // Теперь UseCase работает на правильном общем репозитории
+                useCase.execute(item)
             } else {
                 android.util.Log.e("TODO_ERROR", "Cannot insert task: Invalid parent folder ID alignment.")
             }

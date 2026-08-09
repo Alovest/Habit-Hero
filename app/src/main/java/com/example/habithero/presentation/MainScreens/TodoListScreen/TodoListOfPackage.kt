@@ -147,7 +147,7 @@ fun TodoListOfPackage(
 
     if (showDialog) {
         ShowDialogFun(
-            folderId = folderId, // FIXED: Pass the verified folderId argument directly
+            folderId = folderId,
             onDismiss = { showDialog = false },
             viewModel = viewModel
         )
@@ -196,7 +196,6 @@ fun ShowDialogFun(
             Button(onClick = {
                 val trimmedName = inputName.trim()
 
-                // КРИТИЧЕСКАЯ ПРОВЕРКА: Проверяем, что ID папки пришел корректным
                 if (folderId == 0L) {
                     android.util.Log.e("ROOM_CRITICAL_ERROR", "Попытка сохранить InterPackages с folderId = 0L! Операция заблокирована.")
                     Toast.makeText(context, "Ошибка: Неверный ID папки (0)", Toast.LENGTH_LONG).show()

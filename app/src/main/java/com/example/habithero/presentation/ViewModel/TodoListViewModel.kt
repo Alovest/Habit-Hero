@@ -11,52 +11,23 @@ import com.example.habithero.infrastructure.data.Room.Data.TodoList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-//class TodoListViewModel(application: Application,
-//                        private val useCase: CreateTodoUseCase,
-//                        private var repository: TodoListRepository,
-//                        val IPid: Long
-//): AndroidViewModel(application) {
-//    val readAllData: LiveData<List<TodoList>>
-//    private val allTodoList = MutableLiveData<List<TodoList>>()
-//    val usersTodoList: LiveData<List<TodoList>> = allTodoList
-//    init {
-//        val todoDao = TodoDatabase.getDatabaseToTodo(application).todoDao()
-//        repository = TodoListRepositoryImpl(todoDao, IPid)
-//        readAllData = repository.readAllTodo
-//        readAllData.observeForever { data ->
-//            allTodoList.value = data
-//        }
-//    }
-//
-//    fun getTodoFromUser(todo: TodoList){
-//        viewModelScope.launch(Dispatchers.IO) {
-//            useCase.execute(todo)
-//            repository.readAllTodo.value?.let { updatedData ->
-//                allTodoList.postValue(updatedData)
-//            }
-//        }
-//    }
-//}
-
 class TodoListViewModel(
     application: Application,
     private val useCase: CreateTodoUseCase,
     private val repository: TodoListRepository,
-    val IPid: Long? // Strictly Nullable Long? to match room schema
+    val IPid: Long?
 ): AndroidViewModel(application) {
 
     private val allTodoList = MutableLiveData<List<TodoList>>()
     val usersTodoList: LiveData<List<TodoList>> = allTodoList
 
-    // 1. Automatically binds to the correct SQL data stream on startup
     val readAllData: LiveData<List<TodoList>> = if (IPid == 0L || IPid == null) {
-        repository.getAllTodo(null) // Queries where IPid IS NULL
+        repository.getAllTodo(null)
     } else {
-        repository.getAllTodo(IPid)  // Queries the explicit folder package
+        repository.getAllTodo(IPid)
     }
 
     init {
-        // Observe changes safely to pipe into the auxiliary usersTodoList state stream
         readAllData.observeForever { data ->
             allTodoList.value = data ?: emptyList()
         }

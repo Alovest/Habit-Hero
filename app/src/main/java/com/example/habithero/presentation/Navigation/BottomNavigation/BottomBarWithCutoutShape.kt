@@ -162,45 +162,6 @@ fun NavBarWithCenterButton(navController: NavController, onCenterButtonClick: ()
         }
 
         CenterButton(onClick = onCenterButtonClick)
-
-//        Box(
-//            modifier = Modifier
-//                .offset(y = (-24).dp)
-//                .size(72.dp),
-//            contentAlignment = Alignment.Center
-//        ) {
-//            Box(
-//                modifier = Modifier
-//                    .size(72.dp)
-//                    .clip(CircleShape)
-//                    .background(
-//                        brush = Brush.radialGradient(
-//                            colors = listOf(Color(0xFF7C4DFF).copy(alpha = 0.9f), Color(0x00000000)),
-//                            center = Offset(36f, 36f),
-//                            radius = 80f
-//                        )
-//                    )
-//            )
-//
-//            Box(
-//                modifier = Modifier
-//                    .size(56.dp)
-//                    .shadow(8.dp, CircleShape)
-//                    .clip(CircleShape)
-//                    .background(Color.White)
-//                    .clickable {
-//                        println("Центральная кнопка нажата")
-//                    }
-//            ) {
-//                Icon(
-//                    imageVector = Icons.Default.Add,
-//                    contentDescription = "Center Button",
-//                    tint = Color(0xFF7C4DFF),
-//                    modifier = Modifier.align(Alignment.Center)
-//                )
-//            }
-//        }
-
     }
 }
 
