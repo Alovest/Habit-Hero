@@ -134,7 +134,6 @@ fun HomeScreen(){
                             .fillMaxWidth()
                     ) {
                         Column(modifier = Modifier.fillMaxWidth()) {
-                            //Row(modifier = Modi) { }
                             Text(text = if (count <= 100) "Cчет: $count/100" else "Счет: $count/150",
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = Color.White,

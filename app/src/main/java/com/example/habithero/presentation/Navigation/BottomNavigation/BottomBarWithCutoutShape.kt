@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AssignmentTurnedIn
 import androidx.compose.material.icons.filled.Games
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -104,7 +105,7 @@ fun NavBarWithCenterButton(navController: NavController, onCenterButtonClick: ()
                     Triple("Home", Icons.Default.Games, "Home"),
                     Triple("TodoList", Icons.Default.List, "TodoList"),
                     Triple("Pomodoro", Icons.Default.Timer, "Pomodoro"),
-                    Triple("Cart", Icons.Default.ShoppingCart, "Cart")
+                    Triple("Cat", Icons.Default.AssignmentTurnedIn, "Cart")
                 )
 
                 Row(

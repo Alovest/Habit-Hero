@@ -125,7 +125,6 @@ fun NavGraph() {
             NavHost(navController, startDestination = "Home") {
                 composable("Home") { HomeScreen() }
 
-                // Экран списка папок (TodoList)
                 composable(
                     route = "TodoList?ipid={ipid}",
                     arguments = listOf(
@@ -157,9 +156,7 @@ fun NavGraph() {
                     val userDataVal = backStackEntry.arguments?.getString("titleOfTodo") ?: ""
                     val todoId = backStackEntry.arguments?.getLong("todoId") ?: 0L
 
-                    val detailsTodoViewModel: TodoListViewModel = koinViewModel(
-                        parameters = { parametersOf(todoId) }
-                    )
+
 
                     val currentFolder = TodoList(
                         Todoid = todoId,
