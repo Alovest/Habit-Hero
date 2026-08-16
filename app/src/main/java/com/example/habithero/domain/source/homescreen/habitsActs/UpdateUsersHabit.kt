@@ -6,7 +6,5 @@ import com.example.habithero.infrastructure.data.Room.Data.User
 interface UpdateUsersHabit {
     val userDao: UserDao
 
-    suspend fun updateUsersHabit(user: User){
-        userDao.updateUser(user)
-    }
+    suspend fun updateUsersHabit(user: User)
 }

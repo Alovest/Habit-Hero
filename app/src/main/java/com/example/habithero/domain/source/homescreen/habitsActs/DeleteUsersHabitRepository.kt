@@ -6,7 +6,5 @@ import com.example.habithero.infrastructure.data.Room.Data.User
 interface DeleteUsersHabitRepository {
     val userDao: UserDao
 
-    suspend fun deleteUsersHabit(user: User){
-        userDao.deleteUser(user)
-    }
+    suspend fun deleteUsersHabit(user: User)
 }

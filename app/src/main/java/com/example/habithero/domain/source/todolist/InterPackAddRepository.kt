@@ -7,8 +7,6 @@ import com.example.habithero.infrastructure.data.Room.Data.InterPackages
 interface InterPackAddRepository {
     val interPackDao: InterPackDao
     val readAllDataInterPackRepository: LiveData<List<InterPackages>>
-    suspend fun addInterPackItem(item: InterPackages) {
-        interPackDao.getInterPacksItem(item)
-    }
+    suspend fun addInterPackItem(item: InterPackages)
     fun getItemsFromFolder(folderId: Long): LiveData<List<InterPackages>>
 }

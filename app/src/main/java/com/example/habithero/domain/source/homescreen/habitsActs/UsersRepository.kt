@@ -7,7 +7,5 @@ import com.example.habithero.infrastructure.data.Room.Data.User
 interface UsersRepository {
     val userDao: UserDao
     val readAllHabit: LiveData<List<User>>
-    suspend fun fetchDataUser(user: User){
-        userDao.getHabitUser(user)
-    }
+    suspend fun fetchDataUser(user: User)
 }
