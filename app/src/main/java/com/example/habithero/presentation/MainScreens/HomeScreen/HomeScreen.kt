@@ -52,6 +52,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.example.habithero.R
@@ -263,3 +264,9 @@ fun HomeScreen(){
                 }
             }
         }
+
+@Preview(showBackground = true)
+@Composable
+fun showScreen(){
+    HomeScreen()
+}

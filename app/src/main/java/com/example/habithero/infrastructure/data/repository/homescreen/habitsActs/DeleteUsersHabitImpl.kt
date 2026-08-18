@@ -8,6 +8,6 @@ class DeleteUsersHabitImpl(
     override val userDao: UserDao
 ): DeleteUsersHabitRepository {
     override suspend fun deleteUsersHabit(user: User) {
-        super.deleteUsersHabit(user)
+        userDao.deleteUser(user)
     }
 }

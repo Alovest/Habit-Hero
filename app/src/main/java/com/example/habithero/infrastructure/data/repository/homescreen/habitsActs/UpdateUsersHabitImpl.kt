@@ -6,6 +6,6 @@ import com.example.habithero.infrastructure.data.Room.Data.User
 
 class UpdateUsersHabitImpl(override val userDao: UserDao): UpdateUsersHabit {
     override suspend fun updateUsersHabit(user: User) {
-        super.updateUsersHabit(user)
+        userDao.updateUser(user)
     }
 }

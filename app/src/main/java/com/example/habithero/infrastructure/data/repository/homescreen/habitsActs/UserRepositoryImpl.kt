@@ -10,6 +10,6 @@ class UserRepositoryImpl(override val userDao: UserDao) : UsersRepository {
     override val readAllHabit: LiveData<List<User>> = userDao.getAllHabits()
 
      override suspend fun fetchDataUser(user: User) {
-         super.fetchDataUser(user)
+         userDao.getHabitUser(user)
      }
 }
